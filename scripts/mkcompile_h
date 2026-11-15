@@ -5,6 +5,15 @@ UTS_MACHINE=$1
 CC_VERSION="$2"
 LD=$3
 
+# Hanita: Kleaf (build/kernel/_setup_env.sh) always passes the generic
+# build-user@build-host; sign our builds instead. Any other value is kept.
+if [ "$KBUILD_BUILD_USER" = "build-user" ]; then
+	KBUILD_BUILD_USER=HanaSkys
+fi
+if [ "$KBUILD_BUILD_HOST" = "build-host" ]; then
+	KBUILD_BUILD_HOST=HanitaMods
+fi
+
 if test -z "$KBUILD_BUILD_USER"; then
 	LINUX_COMPILE_BY=$(whoami | sed 's/\\/\\\\/')
 else
